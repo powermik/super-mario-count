@@ -1,9 +1,11 @@
 -- file: setup.lua
 local module = {}
+local disp = require("display")
 
 local function wifi_wait_ip(callback)  
   if wifi.sta.getip()== nil then
-    print("IP unavailable, Waiting...");
+    print("IP unavailable, Waiting...")
+    disp.message("Connecting...")
   else
     tmr.stop(1)
     print("\n====================================")
@@ -22,7 +24,8 @@ local function wifi_start(list_aps, callback)
                 wifi.setmode(wifi.STATION);
                 wifi.sta.config(key,config.SSID[key])
                 wifi.sta.connect()
-                print("Connecting to " .. key .. " ...")
+                disp.message("... " .. key)
+                
                 --config.SSID = nil  -- can save memory
                 tmr.alarm(1, 2500, 1, function() wifi_wait_ip(callback) end)
             end
@@ -33,6 +36,9 @@ local function wifi_start(list_aps, callback)
 end
 
 function module.start(callback)  
+  disp.setup()
+  disp.display():setFont(u8g.font_6x10)
+  disp.message("Configuring wifi")
   print("Configuring Wifi ...")
   wifi.setmode(wifi.STATION);
   wifi.sta.getap(function(aps) wifi_start(aps, callback) end)
