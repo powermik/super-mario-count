@@ -1,6 +1,8 @@
 config = require("config")  
 w = require("wifi-devlol")
 
-w.start()  
+function load_super_mario_count()
+    require("supermariocount")
+end
 
-require("supermariocount")
+w.start(load_super_mario_count)  
