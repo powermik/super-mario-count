@@ -15,6 +15,9 @@ tmr.start(timer_id)
 
 function change_super_mario_count(what)
     super_mario_count = super_mario_count + what
+    if super_mario_count < 0 then
+      super_mario_count = 0
+    end
     -- trigger mqtt calls
 end
 
