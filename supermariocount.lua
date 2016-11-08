@@ -6,6 +6,11 @@ disp = require("display")
 disp.setup()
 timer_id = 3
 
+mqtt_client = require('mqtt-client').setup(require('config').mqtt)
+
+-- TODO Read retained value from server when restarting
+
+
 function draw_display()
     disp.draw(super_mario_count, timer_id)
 end
@@ -17,11 +22,14 @@ function change_super_mario_count(what)
     super_mario_count = super_mario_count + what
     if super_mario_count < 0 then
       super_mario_count = 0
+      return
     end
-    -- trigger mqtt calls
+    
+    mqtt_client.message("event", what, 0)
+    mqtt_client.message("total", super_mario_count, 1)
 end
 
-
+-- set up buttons
 BTN_INC = 5
 BTN_DEC = 6
 
