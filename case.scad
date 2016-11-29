@@ -257,7 +257,7 @@ module rounded_cube_case (generate_box, generate_lid) {
         // Define any holes in the box walls here
         // Sample teardrop holes with bottom of round lobe at floor of box - uncomment and tailor as desired
 
-        teardrop_r = 3.5;  // radius for round end of teardrop
+        // hole for USB power plug
         translate([ -MDA, box_sy/2 - 5,  9 + box_bt ])  // left sidewall
           cube([box_bt + 2 * MDA, 11, 6]);
           
@@ -366,21 +366,18 @@ module rounded_cube_case (generate_box, generate_lid) {
         // Add removal of any holes in the lid here
         // Sample square hole centered in lid - uncomment and tailor as desired
 
+        // holes for buttons
         translate([ 20, box_sy*0.3, lid_sz/2 ])
-         cube([ 14, 14, lid_sz + MDA], center=true );
-        translate([ 20 + 14, box_sy*0.3, lid_sz/8 ])
-          cube([ 6, 2, lid_sz], center=true );
-
+          cube([ 19, 19, lid_sz + MDA], center=true );
         translate([ 20, box_sy*0.7, lid_sz/2 ])
-          cube([ 14, 14, lid_sz + MDA], center=true );
-        translate([ 20 + 14, box_sy*0.7, lid_sz/8 ])
-          cube([ 6, 2, lid_sz], center=true );
-        translate([ 20 + 14, box_sy*0.7, lid_sz/8 ])
-          cube([ 2, 6, lid_sz], center=true );
+          cube([ 19, 19, lid_sz + MDA], center=true );
 
-        translate([ 60, box_sy*0.5, lid_sz/2 ])
+
+        // hole for display
+        translate([ 55, box_sy*0.5, lid_sz/2 ])
           cube([ 24, 15, lid_sz + MDA], center=true );
 
+//*/
       }  // end difference for lid
     }  // end translate to move away from box if it is also being made
   }  // end if generate_lid
