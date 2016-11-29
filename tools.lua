@@ -9,7 +9,7 @@ end
 function debounce (func, delay)
     local last = 0
     -- 50ms * 1000 as tmr.now() has μs resolution
-    local delay = if delay then delay else 50000 end
+    local delay = delay or 50000
 
     return function (...)
         local now = tmr.now()

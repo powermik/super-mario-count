@@ -3,7 +3,7 @@
 super_mario_count = 0
 
 local disp = require("display")
-local disp.setup()
+disp.setup()
 local timer_id = 3
 local timer_mqtt_id = 4
 
@@ -35,12 +35,12 @@ require("tools") -- debounce function
 
 function change_count_on_input(pin, direction)
     gpio.mode(pin, gpio.INT)
-    gpi.trig(pin, "both", debounce(
+    gpio.trig(pin, "both", debounce(
         function (level)
-            if(level == gpio.high) then
+            if level == gpio.high then
                 change_super_mario_count(direction)
             end
-        end
+        end)
     )
 end
 
