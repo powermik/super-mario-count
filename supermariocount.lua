@@ -31,25 +31,18 @@ function change_super_mario_count(what)
 end
 
 -- set up buttons
-BTN_INC = 5
-BTN_DEC = 6
+require("tools") -- debounce function
 
-gpio.mode(BTN_INC, gpio.INT)
-function increment(level)
-   if(level == gpio.LOW) then
-      change_super_mario_count(1)
-   end
-  -- basically loop it
-  gpio.trig(BTN_INC, level == gpio.HIGH and "down" or "up")
+function change_count_on_input(pin, direction)
+    gpio.mode(pin, gpio.INT)
+    gpi.trig(pin, "both", debounce(
+        function (level)
+            if(level == gpio.high) then
+                change_super_mario_count(direction)
+            end
+        end
+    )
 end
-gpio.trig(BTN_INC, "down", increment)
 
-gpio.mode(BTN_DEC, gpio.INT)
-function decrement(level)
-   if(level == gpio.LOW) then
-      change_super_mario_count(-1)
-   end
-  -- basically loop it
-  gpio.trig(BTN_DEC, level == gpio.HIGH and "down" or "up")
-end
-gpio.trig(BTN_DEC, "down", decrement)
+change_count_on_input(5, 1) -- increment
+change_count_on_input(6, -1) -- decrement
