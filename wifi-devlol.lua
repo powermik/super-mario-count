@@ -42,6 +42,16 @@ function module.start(callback)
   print("Configuring Wifi ...")
   wifi.setmode(wifi.STATION);
   wifi.sta.getap(function(aps) wifi_start(aps, callback) end)
+
+  -- reconnect
+  wifi.sta.eventMonReg(wifi.STA_CONNECTING, function(previous_State)
+    if(previous_State==wifi.STA_GOTIP) then
+      print("Station lost connection with access point\n\tAttempting to reconnect...")
+    else
+      print("STATION_CONNECTING")
+    end
+  end)
+
 end
 
 return module  
