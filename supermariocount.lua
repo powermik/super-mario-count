@@ -2,11 +2,12 @@
 
 super_mario_count = 0
 
-disp = require("display")
-disp.setup()
-timer_id = 3
+local disp = require("display")
+local disp.setup()
+local timer_id = 3
+local timer_mqtt_id = 4
 
-mqtt_client = require('mqtt-client').setup(require('config').mqtt)
+local mqtt_client = require('mqtt-client').setup(require('config').mqtt)
 
 -- TODO Read retained value from server when restarting
 
