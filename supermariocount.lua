@@ -25,7 +25,8 @@ function change_super_mario_count(what)
       super_mario_count = 0
       return
     end
-    
+    disp.flash_title(what > 0 and "Hello Dave!" or "Logging you off", 2)
+
     mqtt_client.message("event", what, 0)
     mqtt_client.message("total", super_mario_count, 1)
 end
