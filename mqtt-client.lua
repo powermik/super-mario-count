@@ -7,7 +7,7 @@ local options = nil
 function module.connect(options)
 
 for k,v in pairs(options) do print(k,v) end
-  client:connect(options.host, options.port, options.secure,
+  client:connect(options.host, options.port, options.secure, 1,
                  function(client) print("connected") end, 
                  function(client, reason) print("failed reason: "..reason) end)
 
