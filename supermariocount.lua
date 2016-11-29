@@ -37,7 +37,7 @@ function change_count_on_input(pin, direction)
     gpio.mode(pin, gpio.INT)
     gpio.trig(pin, "both", debounce(
         function (level)
-            if level == gpio.high then
+            if level == gpio.HIGH then
                 change_super_mario_count(direction)
             end
         end)
