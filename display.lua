@@ -8,8 +8,9 @@ local width = 128
 local height = 64
 
 function get_title_offset(str)
+    if (disp == nil) then return end -- too soon
     disp:setFont(u8g.font_7x14Br)
-    w = (disp:getWidth() - disp:getStrWidth(str)) / 2
+    local w = (disp:getWidth() - disp:getStrWidth(str)) / 2
     if w < 0 then
       return 0
     elseif w > disp:getWidth() / 2 then
@@ -54,7 +55,7 @@ function module.draw(super_mario_count, timer_id)
         local delta = flash_until - tmr.now()
         if tmr.now() > flash_until then
           flash_title = title
-          get_title_offset(flash_title)
+          title_offset = get_title_offset(flash_title)
           flash_until = 0
         end
       end
