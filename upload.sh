@@ -2,7 +2,7 @@ files=(config.lua display.lua mqtt-client.lua wifi-devlol.lua tools.lua supermar
 
 for file in ${files[@]}; do
   echo $file
-  luatool.py --port $1 --src $file --dest $file -c
+  luatool.py --port $1 --src $file --dest $file
   if [ $? -ne 0 ]
   then
     exit 0
