@@ -1,19 +1,19 @@
--- file: setup.lua
 local module = {}
 local disp = require("display")
 
-local function wifi_wait_ip(callback)  
+local function wifi_wait_ip(callback, network)
   if wifi.sta.getip()== nil then
     print("IP unavailable, Waiting...")
     disp.message("Connecting...")
   else
     tmr.stop(1)
-    print("\n====================================")
+    disp.message("Connected to " .. network)
     print("ESP8266 mode is: " .. wifi.getmode())
     print("MAC address is: " .. wifi.ap.getmac())
     print("IP is "..wifi.sta.getip())
-    print("====================================")
-    print(callback())
+    if type(callback) == 'function' then
+        callback()
+    end
   end
 end
 
@@ -25,9 +25,8 @@ local function wifi_start(list_aps, callback)
                 wifi.sta.config(key,config.SSID[key])
                 wifi.sta.connect()
                 disp.message("... " .. key)
-                
-                --config.SSID = nil  -- can save memory
-                tmr.alarm(1, 2500, 1, function() wifi_wait_ip(callback) end)
+
+                tmr.alarm(1, 2500, 1, function() wifi_wait_ip(callback, key) end)
             end
         end
     else
