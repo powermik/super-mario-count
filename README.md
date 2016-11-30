@@ -23,3 +23,6 @@ __Replacing humans with electronics!__
 * Third button
 * Center all the texts!1
 * Be lazy about posting to mqtt so we can catch mistaken double input followed by a partial reverse
+* Display network and strength
+* Display mqtt broker stats
+
