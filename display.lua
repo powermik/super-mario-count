@@ -6,6 +6,9 @@ local flash_title = title -- This one will actually be rendered
 local flash_until = 0
 local width = 128
 local height = 64
+local sda = 2
+local scl = 1
+local sla = 0x3c -- 0x3c or 0x3d
 
 function get_title_offset(str)
     if (disp == nil) then return end -- too soon
@@ -21,13 +24,9 @@ function get_title_offset(str)
     end
 end
 
-
 -- setup I2c and connect display
 function module.setup()
     -- SDA and SCL can be assigned freely to available GPIOs
-    local sda = 2
-    local scl = 1
-    local sla = 0x3c -- 0x3c or 0x3d
     i2c.setup(0, sda, scl, i2c.SLOW)
     disp = u8g.ssd1306_128x64_i2c(sla)
     title_offset = get_title_offset(title)
