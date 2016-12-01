@@ -5,9 +5,16 @@ super_mario_count = 0
 local disp = require("display").setup()
 local timer_id = 3
 local timer_mqtt_id = 4
-local mqtt_client = require('mqtt-client').setup(require('config').mqtt)
+mqtt_client = require('mqtt-client')
 
--- TODO Read retained value from server when restarting
+
+-- Read retained value from server when restarting
+function retrieve_last_super_mario_count()
+    mqtt_client.read_topic("total", function(topic, message)
+        print("Read last value: " .. message)
+        super_mario_count = message
+    end)
+end
 
 function draw_display()
     disp.draw(super_mario_count, timer_id)
@@ -35,6 +42,9 @@ function change_count_on_input(pin, direction)
         end)
     )
 end
+
+
+mqtt_client.setup(require('config').mqtt, retrieve_last_super_mario_count)
 
 -- set up display
 tmr.register(timer_id, 100, tmr.ALARM_SEMI, draw_display)
