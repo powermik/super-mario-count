@@ -9,6 +9,7 @@ local height = 64
 
 function get_title_offset(str)
     if (disp == nil) then return end -- too soon
+    if str == nil or #str == 0 then return end -- too little
     disp:setFont(u8g.font_7x14Br)
     local w = (disp:getWidth() - disp:getStrWidth(str)) / 2
     if w < 0 then
