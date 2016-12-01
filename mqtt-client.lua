@@ -5,12 +5,9 @@ local client = nil
 local options = nil
 
 function module.connect(options)
-
-for k,v in pairs(options) do print(k,v) end
   client:connect(options.host, options.port, options.secure, 1,
                  function(client) print("connected") end, 
                  function(client, reason) print("failed reason: "..reason) end)
-
 end
 
 function module.setup(opts)
@@ -27,7 +24,6 @@ function module.client()
 end
 
 function module.message(topic, message, retain)
-print(topic, message, retain, client)
     client:publish(options.endpoint .. topic, message, 0, retain)
 end
 

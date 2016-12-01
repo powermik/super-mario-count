@@ -30,6 +30,7 @@ function module.setup()
     i2c.setup(0, sda, scl, i2c.SLOW)
     disp = u8g.ssd1306_128x64_i2c(sla)
     title_offset = get_title_offset(title)
+    return module
 end
 
 function module.flash_title(str, seconds)
