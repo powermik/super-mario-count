@@ -8,6 +8,7 @@ __Replacing humans with electronics!__
  * Wemos D1 Mini (esp8266)
  * SSD1306 Display 128x64 I²C with yellow and yellow OLED display
  * Simple unser interface with only two buttons to increment/decrement a decimal number.
+ * Safe to resets (loads last total from mqtt broker)
  * Mqtt for NSA surveilance compliance
  * Open Source
 
@@ -21,6 +22,7 @@ __Replacing humans with electronics!__
 ## Todo
 
 * Third button
+* Fancy buttons from table calculator
 * Center all the texts!1
 * Be lazy about posting to mqtt so we can catch mistaken double input followed by a partial reverse
 * Display network and strength
