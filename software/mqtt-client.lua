@@ -13,7 +13,9 @@ function module.setup(opts, connected)
     module.options = opts
 
     client = mqtt.Client(module.options.id, 120, module.options.user, module.options.password)
-    client:on("connect", connected)
+    client:lwt((module.options.endpoint .. "status", "offline", 0, 1)
+    client:on("connect", function (client) client:publish(module.options.endpoint .. "status", "online", 0, 1))
+    client:on("offline", function (client) module.connect(module.options, connected))
     module.connect(module.options, connected)
     return module
 end
